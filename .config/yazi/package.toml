@@ -1,0 +1,37 @@
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "cfb9140"
+hash = "b5067143415bd2d46c0dfa57319ddcef"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "398796d"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "398796d"
+hash = "2dd68af59418b631b9703a03f606b31f"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "90a1652"
+hash = "7a83bfab51d1d2ba6558cc56bd52539a"
+
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "9ef1254"
+hash = "92fbb5483657fa7976cdf4e0104e18e0"
+
+[[plugin.deps]]
+use = "carlosedp/yatline"
+rev = "61d3a3a"
+hash = "37fe452b2406df3f24e33b429ef699c2"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:zoom"
+rev = "398796d"
+hash = "a638db397a5a41d3f3a08a7427ccead1"
+
+[flavor]
+deps = []

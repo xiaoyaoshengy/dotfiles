@@ -1,0 +1,9 @@
+# Numbers in seconds
+# Lock screen
+timeout 900 "qs -c noctalia-shell ipc call lockScreen lock"
+
+# Turn off monitors
+timeout 910 "niri msg action power-off-monitors" resume "niri msg action power-on-monitors"
+
+# Ensure screenlock before sleep
+before-sleep "qs -c noctalia-shell ipc call lockScreen lock"

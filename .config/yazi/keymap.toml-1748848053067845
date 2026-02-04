@@ -1,0 +1,14 @@
+[[manager.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch"
+desc = "Compress with ouch"
+
+[[manager.prepend_keymap]]
+on = ["T", "h"]
+run = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"
+
+[[manager.prepend_keymap]]
+on = ["T", "m"]
+run = "plugin toggle-pane max-preview"
+desc = "Show or hide the preview pane"

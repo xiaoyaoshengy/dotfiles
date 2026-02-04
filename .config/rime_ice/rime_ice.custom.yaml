@@ -1,0 +1,5 @@
+patch:
+  switches/@0/reset: 1
+  long_word_filter:
+    count: 2
+    idx: 6

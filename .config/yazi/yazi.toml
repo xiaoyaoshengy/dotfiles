@@ -1,0 +1,72 @@
+# default
+[tasks]
+image_bound = [0, 0]
+
+[plugin]
+prepend_preloaders = [
+  # mediainfo.yazi
+  { mime = "{audio,video}/*", run = "mediainfo" },
+  { mime = "application/{subrip,octet-stream}", run = "mediainfo" },
+]
+prepend_previewers = [
+  # ouch.yazi
+  # Archive previewer
+  { mime = "application/*zip", run = "ouch" },
+  { mime = "application/x-tar", run = "ouch" },
+  { mime = "application/x-bzip2", run = "ouch" },
+  { mime = "application/x-7z-compressed", run = "ouch" },
+  { mime = "application/x-rar", run = "ouch" },
+  { mime = "application/x-xz", run = "ouch" },
+  { mime = "application/xz", run = "ouch" },
+
+  # piper.yazi
+  { name = "*.csv", run = 'piper -- bat -p --color=always "$1"' },
+  { name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { name = "*/", run = 'piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes "$1"' },
+
+  # mediainfo.yazi
+  { mime = "{audio,video}/*", run = "mediainfo" },
+  { mime = "application/{subrip,octet-stream}", run = "mediainfo" },
+
+  # default
+  { url = "*/", run = "folder" },
+  # Code
+  { mime = "text/*", run = "code" },
+  { mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+  # JSON
+  { mime = "application/{json,ndjson}", run = "json" },
+  # Image
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml", run = "svg" },
+  { mime = "image/*", run = "image" },
+  # Video
+  { mime = "video/*", run = "video" },
+  # PDF
+  { mime = "application/pdf", run = "pdf" },
+  # Archive
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
+  { mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
+  { name = "*.{AppImage,appimage}", run = "archive" },
+  # Virtual Disk / Disk Image
+  { mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
+  { mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
+  { name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+  # Font
+  { mime = "font/*", run = "font" },
+  { mime = "application/ms-opentype", run = "font" },
+  # Empty file
+  { mime = "inode/empty", run = "empty" },
+  # Virtual file system
+  { mime = "vfs/*", run = "vfs" },
+  # Error
+  { mime = "null/*", run = "null" },
+
+  # fallback: piper.yazi
+  { name = "*", run = 'piper -- hexyl --border=none --terminal-width=$w "$1"' },
+]
+
+# toggle-pane.yazi
+[preview]
+max_width = 2560
+max_height = 1600
+wrap = "yes"

@@ -1,0 +1,355 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+environment {
+    QT_QPA_PLATFORMTHEME "qt6ct"
+    QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
+}
+
+cursor {
+    xcursor-theme "catppuccin-mocha-lavender-cursors"
+    xcursor-size 24
+
+    hide-when-typing
+    hide-after-inactive-ms 5000
+}
+
+xwayland-satellite {
+    // off
+    path "xwayland-satellite"
+}
+
+input {
+    touchpad {
+        off
+    }
+    keyboard {
+        numlock
+    }
+}
+
+output "eDP-2" {
+    mode "2560x1600@165.000"
+    scale 1.25
+    transform "normal"
+    position x=0 y=0
+}
+
+layout {
+    gaps 4
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        width 2
+        active-gradient from="#f38ba8" to="#f9e2af" angle=45 relative-to="workspace-view"
+        inactive-gradient from="#585b70" to="#7f849c" angle=45 relative-to="workspace-view"
+        urgent-color "#9b0000"
+    }
+}
+
+spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+
+spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "swayidle" "-w"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+window-rule {
+    open-maximized true
+    geometry-corner-radius 6
+    clip-to-geometry true
+}
+
+// noctalia-shell 配置背景图
+window-rule {
+    match title="simple-egl"
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="MusicFree"
+    match app-id="QQ"
+    match app-id="wechat"
+    match app-id="^mpv$"
+    match app-id="pot"
+    match app-id="telegram"
+    match app-id="Zotero"
+    match app-id="baidunetdisk"
+    match app-id="vnite"
+    match app-id="satty"
+    match app-id="KeePassXC"
+    match app-id="moe.launcher.sleepy-launcher"
+    match app-id="gamescope"
+    match app-id="wps"
+    match app-id="wpp"
+    match app-id="et"
+    match app-id="scrcpy"
+    match app-id="zen" title="(我的足迹|扩展)"
+    match app-id="sparkle"
+    match app-id="org.kde.dolphin"
+    match app-id="org.gnome.Nautilus"
+    match app-id="org.kde.ark"
+    match app-id="org.gnome.Calendar"
+    match app-id="com.follow.clash"
+    match app-id="Feishu" title="图片"
+    match app-id="bongo-cat"
+    match app-id="markpix"
+    match app-id="eSearch"
+    open-floating true
+}
+
+window-rule {
+    match app-id="firefox$" title="^画中画$"
+    match app-id="zen$" title="^画中画$"
+    open-floating true
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
+}
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+}
+
+// Qt used by OBS doesn't signal min size yet, so do it manually
+window-rule {
+    match app-id=r#"^com\.obsproject\.Studio$"#
+    min-width 876
+}
+
+// 微信弹窗问题
+window-rule {
+    match app-id="wechat"
+    exclude title=r#"[\u4E00-\u9FFF]+"#
+    open-focused false
+}
+
+layer-rule {
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+
+binds {
+    // niri 快捷键
+    // #"niri 功能"
+    Mod+Shift+Slash hotkey-overlay-title="快捷键提示" { show-hotkey-overlay; }
+    Mod+O repeat=false hotkey-overlay-title="桌面概览" { toggle-overview; }
+    Mod+Q repeat=false hotkey-overlay-title="关闭窗口" { close-window; }
+    Mod+Shift+E hotkey-overlay-title="退出niri" { quit; }
+    Mod+Shift+P hotkey-overlay-title="关闭监视器" { power-off-monitors; }
+
+    // #"应用"
+    Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
+    Mod+B hotkey-overlay-title="音乐播放器" { spawn-sh "kitty zsh -c ncmpcpp"; }
+
+    // #"聚焦窗口"
+    Mod+Left hotkey-overlay-title="向左聚焦" { focus-column-left; }
+    Mod+Down hotkey-overlay-title="向下聚焦" { focus-window-down; }
+    Mod+Up hotkey-overlay-title="向上聚焦" { focus-window-up; }
+    Mod+Right hotkey-overlay-title="向右聚焦" { focus-column-right; }
+    Mod+H hotkey-overlay-title="向左聚焦" { focus-column-left; }
+    Mod+J hotkey-overlay-title="向下聚集" { focus-window-down; }
+    Mod+K hotkey-overlay-title="向上聚焦" { focus-window-up; }
+    Mod+L hotkey-overlay-title="向右聚焦" { focus-column-right; }
+    
+    Mod+Home hotkey-overlay-title="聚焦首位" { focus-column-first; }
+    Mod+End hotkey-overlay-title="聚焦末尾" { focus-column-last; }
+    Mod+A hotkey-overlay-title="聚焦首位" { focus-column-first; }
+    Mod+Shift+A hotkey-overlay-title="聚焦末尾" { focus-column-last; }
+    
+    Mod+Shift+WheelScrollDown hotkey-overlay-title="向右聚焦" { focus-column-right; }
+    Mod+Shift+WheelScrollUp hotkey-overlay-title="向左聚焦" { focus-column-left; }
+    
+    // #"聚焦监视器"
+    Mod+Shift+Left hotkey-overlay-title="聚焦左侧监视器" { focus-monitor-left; }
+    Mod+Shift+Down hotkey-overlay-title="聚焦下方监视器" { focus-monitor-down; }
+    Mod+Shift+Up hotkey-overlay-title="聚焦上方监视器" { focus-monitor-up; }
+    Mod+Shift+Right hotkey-overlay-title="聚焦右侧监视器" { focus-monitor-right; }
+    Mod+Shift+H hotkey-overlay-title="聚焦左侧监视器" { focus-monitor-left; }
+    Mod+Shift+J hotkey-overlay-title="聚焦下方监视器" { focus-monitor-down; }
+    Mod+Shift+K hotkey-overlay-title="聚焦上方监视器" { focus-monitor-up; }
+    Mod+Shift+L hotkey-overlay-title="聚焦右侧监视器" { focus-monitor-right; }
+    
+    // #"聚焦工作区"
+    Mod+Page_Down hotkey-overlay-title="聚焦下方工作区" { focus-workspace-down; }
+    Mod+Page_Up hotkey-overlay-title="聚焦上方工作区" { focus-workspace-up; }
+    Mod+D hotkey-overlay-title="聚焦下方工作区" { focus-workspace-down; }
+    Mod+U hotkey-overlay-title="聚焦上方工作区" { focus-workspace-up; }
+    
+    Mod+WheelScrollDown hotkey-overlay-title="聚焦下方工作区" cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp hotkey-overlay-title="聚焦上方工作区" cooldown-ms=150 { focus-workspace-up; }
+    
+    Mod+1 hotkey-overlay-title="聚焦工作区1" { focus-workspace 1; }
+    Mod+2 hotkey-overlay-title="聚焦工作区2" { focus-workspace 2; }
+    Mod+3 hotkey-overlay-title="聚焦工作区3" { focus-workspace 3; }
+    Mod+4 hotkey-overlay-title="聚焦工作区4" { focus-workspace 4; }
+    Mod+5 hotkey-overlay-title="聚焦工作区5" { focus-workspace 5; }
+    Mod+6 hotkey-overlay-title="聚焦工作区6" { focus-workspace 6; }
+    Mod+7 hotkey-overlay-title="聚焦工作区7" { focus-workspace 7; }
+    Mod+8 hotkey-overlay-title="聚焦工作区8" { focus-workspace 8; }
+    Mod+9 hotkey-overlay-title="聚焦工作区9" { focus-workspace 9; }
+
+    // #"移动窗口"
+    Mod+Ctrl+Left hotkey-overlay-title="向左移动" { move-column-left; }
+    Mod+Ctrl+Down hotkey-overlay-title="向下移动" { move-window-down; }
+    Mod+Ctrl+Up hotkey-overlay-title="向上移动" { move-window-up; }
+    Mod+Ctrl+Right hotkey-overlay-title="向右移动" { move-column-right; }
+    Mod+Ctrl+H hotkey-overlay-title="向左移动" { move-column-left; }
+    Mod+Ctrl+J hotkey-overlay-title="向下移动" { move-window-down; }
+    Mod+Ctrl+K hotkey-overlay-title="向上移动" { move-window-up; }
+    Mod+Ctrl+L hotkey-overlay-title="向右移动" { move-column-right; }
+
+    Mod+Ctrl+Home hotkey-overlay-title="移动至首位" { move-column-to-first; }
+    Mod+Ctrl+End  hotkey-overlay-title="移动至末尾" { move-column-to-last; }
+    
+    Mod+Ctrl+Page_Down hotkey-overlay-title="移动至下方工作区" { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up hotkey-overlay-title="移动至上方工作区" { move-column-to-workspace-up; }
+    Mod+Ctrl+D hotkey-overlay-title="移动至下方工作区" { move-column-to-workspace-down; }
+    Mod+Ctrl+U hotkey-overlay-title="移动至上方工作区" { move-column-to-workspace-up; }
+    
+    Mod+Ctrl+WheelScrollDown hotkey-overlay-title="移动至下方工作区" cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp hotkey-overlay-title="移动至上方工作区" cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+Ctrl+Shift+WheelScrollDown hotkey-overlay-title="向右移动" { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp hotkey-overlay-title="向左移动" { move-column-left; }
+    
+    Mod+BracketLeft hotkey-overlay-title="移动到左侧列" { consume-or-expel-window-left; }
+    Mod+BracketRight hotkey-overlay-title="移动的右侧列" { consume-or-expel-window-right; }
+    Mod+Period hotkey-overlay-title="移动至新列" { expel-window-from-column; }
+
+    // #"移动监视器"
+    Mod+Shift+Ctrl+Left hotkey-overlay-title="移动至左侧监视器" { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down hotkey-overlay-title="移动至下方监视器" { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up hotkey-overlay-title="移动至上方监视器" { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right hotkey-overlay-title="移动至右侧监视器" { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H hotkey-overlay-title="移动至左侧监视器" { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J hotkey-overlay-title="移动至下方监视器" { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K hotkey-overlay-title="移动至上方监视器" { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L hotkey-overlay-title="移动至右侧监视器" { move-column-to-monitor-right; }
+
+    // #"移动工作区"
+    Mod+Shift+Page_Down hotkey-overlay-title="下移工作区" { move-workspace-down; }
+    Mod+Shift+Page_Up hotkey-overlay-title="上移工作区" { move-workspace-up; }
+    Mod+Shift+D hotkey-overlay-title="下移工作区" { move-workspace-down; }
+    Mod+Shift+U hotkey-overlay-title="上移工作区" { move-workspace-up; }
+
+    Mod+Ctrl+1 hotkey-overlay-title="移动至工作区1" { move-column-to-workspace 1; }
+    Mod+Ctrl+2 hotkey-overlay-title="移动至工作区2" { move-column-to-workspace 2; }
+    Mod+Ctrl+3 hotkey-overlay-title="移动至工作区3" { move-column-to-workspace 3; }
+    Mod+Ctrl+4 hotkey-overlay-title="移动至工作区4" { move-column-to-workspace 4; }
+    Mod+Ctrl+5 hotkey-overlay-title="移动至工作区5" { move-column-to-workspace 5; }
+    Mod+Ctrl+6 hotkey-overlay-title="移动至工作区6" { move-column-to-workspace 6; }
+    Mod+Ctrl+7 hotkey-overlay-title="移动至工作区7" { move-column-to-workspace 7; }
+    Mod+Ctrl+8 hotkey-overlay-title="移动至工作区8" { move-column-to-workspace 8; }
+    Mod+Ctrl+9 hotkey-overlay-title="移动至工作区9" { move-column-to-workspace 9; }
+
+    // #"窗口尺寸"
+    Mod+R hotkey-overlay-title="切换宽度" { switch-preset-column-width; }
+    Mod+Shift+R hotkey-overlay-title="切换高度" { switch-preset-window-height; }
+    Mod+Ctrl+R hotkey-overlay-title="重置高度" { reset-window-height; }
+    Mod+F hotkey-overlay-title="最大列宽" { maximize-column; }
+    Mod+Shift+F hotkey-overlay-title="全屏" { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    
+    Mod+Minus hotkey-overlay-title="减小列宽" { set-column-width "-10%"; }
+    Mod+Equal hotkey-overlay-title="增大列宽" { set-column-width "+10%"; }
+
+    Mod+Shift+Minus hotkey-overlay-title="减小窗长"{ set-window-height "-10%"; }
+    Mod+Shift+Equal hotkey-overlay-title="增大窗长"{ set-window-height "+10%"; }
+
+    // #"窗口位置"
+    Mod+E hotkey-overlay-title="居中" { center-column; }
+    Mod+Ctrl+E { center-visible-columns; }
+
+    // #"窗口状态"
+    Mod+G hotkey-overlay-title="切换浮动" { toggle-window-floating; }
+    Mod+Shift+G hotkey-overlay-title="切换聚焦浮动或平铺" { switch-focus-between-floating-and-tiling; }
+    Mod+W hotkey-overlay-title="切换堆叠列" { toggle-column-tabbed-display; }
+
+    // #"截屏"
+    Print hotkey-overlay-title="自定义截图" { screenshot; }
+    Ctrl+Print hotkey-overlay-title="全屏截图" { screenshot-screen; }
+    Alt+Print hotkey-overlay-title="窗口截图" { screenshot-window; }
+    Mod+S hotkey-overlay-title="滚动截屏" { spawn-sh "~/.local/bin/wayscrollshot -c"; }
+
+    // #"其他"
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    // #"Noctalia Shell"
+    Mod+Space hotkey-overlay-title="应用启动器" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle";
+    }
+    Mod+V hotkey-overlay-title="剪贴板" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";
+    }
+    Mod+M hotkey-overlay-title="选择壁纸" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle";
+    }
+    Mod+N hotkey-overlay-title="通知" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
+    }
+    Mod+Comma hotkey-overlay-title="设置" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle";
+    }
+    Super+Alt+L hotkey-overlay-title="锁屏" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+    }
+    Mod+X hotkey-overlay-title="电源菜单" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";
+    }
+    Mod+C hotkey-overlay-title="控制中心" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
+    }
+    Mod+Y hotkey-overlay-title="随机壁纸" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "random";
+    }
+    Mod+P hotkey-overlay-title="暂停/播放媒体" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause";
+    }
+    Mod+I hotkey-overlay-title="快捷键绑定" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:keybind-cheatsheet" "toggle";
+    }
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase";
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease";
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput";
+    }
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase";
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease";
+    }
+    // Night mode toggle
+    Mod+Shift+N allow-when-locked=true hotkey-overlay-title="切换夜间模式" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "darkMode" "toggle";
+    }
+}
