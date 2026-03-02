@@ -27,7 +27,9 @@ xwayland-satellite {
 
 input {
     touchpad {
-        off
+        tap
+        natural-scroll
+        disabled-on-external-mouse
     }
     keyboard {
         numlock
@@ -65,9 +67,7 @@ layout {
 
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
-
 spawn-at-startup "qs" "-c" "noctalia-shell"
-spawn-at-startup "swayidle" "-w"
 
 hotkey-overlay {
     skip-at-startup
@@ -114,10 +114,14 @@ window-rule {
     match app-id="org.gnome.Calendar"
     match app-id="com.follow.clash"
     match app-id="Feishu" title="图片"
-    match app-id="bongo-cat"
     match app-id="markpix"
-    match app-id="eSearch"
+    match app-id="org.gnome.Calculator"
     open-floating true
+}
+
+window-rule {
+    match app-id="net.lutris.Lutris"
+    open-floating false
 }
 
 window-rule {
@@ -164,7 +168,7 @@ binds {
 
     // #"应用"
     Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
-    Mod+B hotkey-overlay-title="音乐播放器" { spawn-sh "kitty zsh -c ncmpcpp"; }
+    Mod+B hotkey-overlay-title="音乐播放器" { spawn-sh "kitty zsh -c 'ncmpcpp -s visualizer'"; }
 
     // #"聚焦窗口"
     Mod+Left hotkey-overlay-title="向左聚焦" { focus-column-left; }
@@ -301,7 +305,7 @@ binds {
 
     // #"Noctalia Shell"
     Mod+Space hotkey-overlay-title="应用启动器" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call launcher toggle";
     }
     Mod+V hotkey-overlay-title="剪贴板" {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";
