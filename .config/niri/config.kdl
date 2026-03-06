@@ -168,7 +168,7 @@ binds {
 
     // #"应用"
     Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
-    Mod+B hotkey-overlay-title="音乐播放器" { spawn-sh "kitty zsh -c 'ncmpcpp -s visualizer'"; }
+    //Mod+B hotkey-overlay-title="音乐播放器" { spawn-sh "kitty zsh -c 'ncmpcpp -s visualizer'"; }
 
     // #"聚焦窗口"
     Mod+Left hotkey-overlay-title="向左聚焦" { focus-column-left; }
@@ -329,13 +329,16 @@ binds {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
     }
     Mod+Y hotkey-overlay-title="随机壁纸" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "random";
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "random" "all";
     }
     Mod+P hotkey-overlay-title="暂停/播放媒体" {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause";
     }
     Mod+I hotkey-overlay-title="快捷键绑定" {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:keybind-cheatsheet" "toggle";
+    }
+    Mod+Slash hotkey-overlay-title="AI助手" {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:assistant-panel" "toggle";
     }
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase";
