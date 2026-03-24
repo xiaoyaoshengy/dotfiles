@@ -264,3 +264,7 @@ unset __mamba_setup
 
 # 修复 conda 导致 clear 命令失效
 alias clear=/usr/bin/clear
+
+# flutter
+export PATH="/data/xiaoyaosheny/Programs/flutter/bin:$PATH"
+export CHROME_EXECUTABLE=/usr/bin/chromium
