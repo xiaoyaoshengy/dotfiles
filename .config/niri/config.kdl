@@ -8,8 +8,7 @@ debug {
 }
 
 environment {
-    QT_QPA_PLATFORMTHEME "qt6ct"
-    QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
+    QT_QPA_PLATFORMTHEME "gtk3"
 }
 
 cursor {
@@ -63,11 +62,15 @@ layout {
         inactive-gradient from="#585b70" to="#7f849c" angle=45 relative-to="workspace-view"
         urgent-color "#9b0000"
     }
+
+    background-color "transparent"
 }
 
-spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
-spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-sh-at-startup "zsh -c wl-paste --watch cliphist store &"
+// spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+spawn-sh-at-startup "qs -c noctalia-shell"
+// spawn-sh-at-startup "awww-daemon"
+// spawn-sh-at-startup "bash /home/xiaoyaosheny/Programs/scripts/awww_randomize.sh /data/xiaoyaosheny/Pictures/Wallpapers 300"
 
 hotkey-overlay {
     skip-at-startup
@@ -76,10 +79,49 @@ hotkey-overlay {
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d-%H-%M-%S.png"
 
+animations {
+    workspace-switch {
+        spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.75 stiffness=323 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
+    }
+}
+
 window-rule {
-    open-maximized true
+    open-maximized-to-edges true
     geometry-corner-radius 6
     clip-to-geometry true
+    // 模糊效果
+    opacity 0.9
+    background-effect {
+        blur true
+        xray false
+    }
 }
 
 // noctalia-shell 配置背景图
@@ -116,12 +158,10 @@ window-rule {
     match app-id="Feishu" title="图片"
     match app-id="markpix"
     match app-id="org.gnome.Calculator"
+    match app-id="feh"
+    match app-id="xdg-desktop-portal-gnome"
+    open-maximized-to-edges false
     open-floating true
-}
-
-window-rule {
-    match app-id="net.lutris.Lutris"
-    open-floating false
 }
 
 window-rule {
@@ -151,10 +191,25 @@ window-rule {
     exclude title=r#"[\u4E00-\u9FFF]+"#
     open-focused false
 }
+// QQ弹窗问题
+window-rule {
+    match app-id="QQ" title="资料卡"
+    match app-id="QQ" title="天气"
+    open-focused false
+}
 
 layer-rule {
+    match namespace="awww-daemon"
     match namespace="^noctalia-overview*"
     place-within-backdrop true
+}
+
+// 模糊效果
+layer-rule {
+    match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+    background-effect {
+        xray false
+    }
 }
 
 binds {
@@ -275,7 +330,7 @@ binds {
     Mod+R hotkey-overlay-title="切换宽度" { switch-preset-column-width; }
     Mod+Shift+R hotkey-overlay-title="切换高度" { switch-preset-window-height; }
     Mod+Ctrl+R hotkey-overlay-title="重置高度" { reset-window-height; }
-    Mod+F hotkey-overlay-title="最大列宽" { maximize-column; }
+    Mod+F hotkey-overlay-title="最大列宽" { maximize-window-to-edges; }
     Mod+Shift+F hotkey-overlay-title="全屏" { fullscreen-window; }
     Mod+Ctrl+F { expand-column-to-available-width; }
     
@@ -295,10 +350,10 @@ binds {
     Mod+W hotkey-overlay-title="切换堆叠列" { toggle-column-tabbed-display; }
 
     // #"截屏"
-    Print hotkey-overlay-title="自定义截图" { screenshot; }
-    Ctrl+Print hotkey-overlay-title="全屏截图" { screenshot-screen; }
-    Alt+Print hotkey-overlay-title="窗口截图" { screenshot-window; }
-    Mod+S hotkey-overlay-title="滚动截屏" { spawn-sh "~/.local/bin/wayscrollshot -c"; }
+    Print hotkey-overlay-title="自定义截图" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit annotate"; }
+    Ctrl+Print hotkey-overlay-title="全屏截图" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit annotateFullscreen"; }
+    Shift+Print hotkey-overlay-title="Pin" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit pin"; }
+    Mod+S hotkey-overlay-title="滚动截屏" { spawn-sh "/usr/bin/wayscrollshot -c"; }
 
     // #"其他"
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
@@ -308,55 +363,61 @@ binds {
         spawn-sh "qs -c noctalia-shell ipc call launcher toggle";
     }
     Mod+V hotkey-overlay-title="剪贴板" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";
+        spawn-sh "qs -c noctalia-shell ipc call launcher clipboard";
     }
     Mod+M hotkey-overlay-title="选择壁纸" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call wallpaper toggle";
     }
     Mod+N hotkey-overlay-title="通知" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
+        spawn-sh "qs -c noctalia-shell ipc call notifications toggleHistory";
     }
     Mod+Comma hotkey-overlay-title="设置" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call settings toggle";
     }
     Super+Alt+L hotkey-overlay-title="锁屏" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+        spawn-sh "qs -c noctalia-shell ipc call lockScreen lock";
     }
     Mod+X hotkey-overlay-title="电源菜单" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle";
     }
     Mod+C hotkey-overlay-title="控制中心" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle";
     }
     Mod+Y hotkey-overlay-title="随机壁纸" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "random" "all";
+        spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";
     }
     Mod+P hotkey-overlay-title="暂停/播放媒体" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause";
+        spawn-sh "qs -c noctalia-shell ipc call media playPause";
     }
     Mod+I hotkey-overlay-title="快捷键绑定" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:keybind-cheatsheet" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call plugin:keybind-cheatsheet toggle";
     }
     Mod+Slash hotkey-overlay-title="AI助手" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:assistant-panel" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call plugin:assistant-panel toggle";
+    }
+    Mod+B hotkey-overlay-title="插件管理器" {
+        spawn-sh "qs -c noctalia-shell ipc call plugin:plugin-manager toggle";
     }
     XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase";
+        spawn-sh "qs -c noctalia-shell ipc call volume increase";
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease";
+        spawn-sh "qs -c noctalia-shell ipc call volume decrease";
     }
     XF86AudioMute allow-when-locked=true {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput";
+        spawn-sh "qs -c noctalia-shell ipc call volume muteOutput";
     }
     XF86MonBrightnessUp allow-when-locked=true {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase";
+        spawn-sh "qs -c noctalia-shell ipc call brightness increase";
     }
     XF86MonBrightnessDown allow-when-locked=true {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease";
+        spawn-sh "qs -c noctalia-shell ipc call brightness decrease";
     }
     // Night mode toggle
     Mod+Shift+N allow-when-locked=true hotkey-overlay-title="切换夜间模式" {
-        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "darkMode" "toggle";
+        spawn-sh "qs -c noctalia-shell ipc call darkMode toggle";
     }
 }
+
+// 颜色主题
+include "./noctalia.kdl"

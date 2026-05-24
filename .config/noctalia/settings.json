@@ -24,7 +24,7 @@
         "showCategories": true,
         "showIconBackground": false,
         "sortByMostUsed": true,
-        "terminalCommand": "kitty -e",
+        "terminalCommand": "alacritty -e",
         "viewMode": "list"
     },
     "audio": {
@@ -54,14 +54,14 @@
         "frameRadius": 12,
         "frameThickness": 8,
         "hideOnOverview": false,
-        "marginHorizontal": 5,
-        "marginVertical": 5,
+        "marginHorizontal": 4,
+        "marginVertical": 4,
         "middleClickAction": "none",
         "middleClickCommand": "",
         "middleClickFollowMouse": false,
         "monitors": [
         ],
-        "mouseWheelAction": "none",
+        "mouseWheelAction": "workspace",
         "mouseWheelWrap": true,
         "outerCorners": true,
         "position": "top",
@@ -80,13 +80,14 @@
             "center": [
                 {
                     "colorizeIcons": false,
-                    "hideMode": "visible",
+                    "hideMode": "hidden",
                     "id": "ActiveWindow",
                     "maxWidth": 145,
                     "scrollingMode": "hover",
                     "showIcon": true,
+                    "showText": true,
                     "textColor": "none",
-                    "useFixedWidth": true
+                    "useFixedWidth": false
                 },
                 {
                     "characterCount": 2,
@@ -94,7 +95,7 @@
                     "emptyColor": "secondary",
                     "enableScrollWheel": true,
                     "focusedColor": "primary",
-                    "followFocusedScreen": true,
+                    "followFocusedScreen": false,
                     "fontWeight": "bold",
                     "groupedBorderOpacity": 1,
                     "hideUnoccupied": false,
@@ -111,7 +112,7 @@
                 },
                 {
                     "compactMode": false,
-                    "hideMode": "visible",
+                    "hideMode": "hidden",
                     "hideWhenIdle": false,
                     "id": "MediaMini",
                     "maxWidth": 145,
@@ -120,9 +121,9 @@
                     "showAlbumArt": true,
                     "showArtistFirst": true,
                     "showProgressRing": true,
-                    "showVisualizer": true,
+                    "showVisualizer": false,
                     "textColor": "none",
-                    "useFixedWidth": true,
+                    "useFixedWidth": false,
                     "visualizerType": "linear"
                 }
             ],
@@ -141,7 +142,7 @@
                 },
                 {
                     "compactMode": false,
-                    "diskPath": "/home",
+                    "diskPath": "/",
                     "iconColor": "none",
                     "id": "SystemMonitor",
                     "showCpuCores": false,
@@ -164,14 +165,16 @@
                 {
                     "defaultSettings": {
                         "arrowType": "caret",
-                        "byteThresholdActive": 1024,
-                        "fontSizeModifier": 1,
-                        "forceMegabytes": false,
+                        "byteThresholdActive": 5000,
+                        "customFontBold": false,
+                        "customFontItalic": false,
+                        "fontSizeModifier": 0.75,
+                        "horizontalLayout": false,
                         "iconSizeModifier": 1,
-                        "minWidth": 0,
                         "showNumbers": true,
                         "spacingInbetween": 0,
-                        "useCustomColors": false
+                        "useCustomColors": false,
+                        "useCustomFont": false
                     },
                     "id": "plugin:network-indicator"
                 },
@@ -188,36 +191,47 @@
                 },
                 {
                     "defaultSettings": {
-                        "audioCodec": "opus",
-                        "audioSource": "default_output",
-                        "colorRange": "limited",
-                        "copyToClipboard": false,
-                        "customReplayDuration": "30",
-                        "directory": "",
-                        "filenamePattern": "recording_yyyyMMdd_HHmmss",
-                        "frameRate": "60",
-                        "hideInactive": false,
-                        "iconColor": "none",
-                        "quality": "very_high",
-                        "replayDuration": "30",
-                        "replayEnabled": false,
-                        "replayStorage": "ram",
-                        "resolution": "original",
-                        "restorePortalSession": false,
-                        "showCursor": true,
-                        "videoCodec": "h264",
-                        "videoSource": "portal"
+                        "colorHistory": [
+                        ],
+                        "detectedCompositor": "",
+                        "detectedRecorder": "",
+                        "filenameFormat": "",
+                        "installedLangs": [
+                            "eng"
+                        ],
+                        "paletteColors": [
+                        ],
+                        "screenshotPath": "",
+                        "selectedOcrLang": "eng",
+                        "transAvailable": false,
+                        "videoPath": ""
                     },
-                    "id": "plugin:screen-recorder"
+                    "id": "plugin:screen-toolkit"
                 }
             ],
             "right": [
                 {
                     "defaultSettings": {
+                        "activeColor": "primary",
+                        "camFilterRegex": "",
+                        "enableToast": true,
                         "hideInactive": false,
+                        "iconSpacing": 4,
+                        "inactiveColor": "none",
+                        "micFilterRegex": "",
                         "removeMargins": false
                     },
                     "id": "plugin:privacy-indicator"
+                },
+                {
+                    "capsLockIcon": "letter-c",
+                    "hideWhenOff": true,
+                    "id": "LockKeys",
+                    "numLockIcon": "letter-n",
+                    "scrollLockIcon": "letter-s",
+                    "showCapsLock": true,
+                    "showNumLock": true,
+                    "showScrollLock": true
                 },
                 {
                     "defaultSettings": {
@@ -226,17 +240,13 @@
                     "id": "plugin:mini-docker"
                 },
                 {
+                    "defaultSettings": {
+                        "githubGistId": "",
+                        "githubToken": "",
+                        "notes": "[]",
+                        "syncEnabled": false
+                    },
                     "id": "plugin:sticky-notes"
-                },
-                {
-                    "capsLockIcon": "letter-c",
-                    "hideWhenOff": false,
-                    "id": "LockKeys",
-                    "numLockIcon": "letter-n",
-                    "scrollLockIcon": "letter-s",
-                    "showCapsLock": true,
-                    "showNumLock": true,
-                    "showScrollLock": true
                 },
                 {
                     "blacklist": [
@@ -248,66 +258,16 @@
                     "id": "Tray",
                     "pinned": [
                         "飞书",
-                        "chrome_status_icon_1",
                         "微信",
-                        "密码 - KeePassXC",
-                        "y9Fyf5M9BO",
-                        "password_database.kdbx [锁定] - KeePassXC",
-                        "qUsetuuHEc",
-                        "9jdRqQjjMk",
-                        "KeePassXC",
-                        "lBij1BkjN7",
-                        "5imcx3I96v",
-                        "MS8ucQ4yWW",
-                        "2BCCkxyBa-",
                         "Telegram Desktop",
-                        "3Fg_ym39Z-",
-                        "a6eYPAvElR",
-                        "tray-icon tray app",
-                        "3xuXMyK7fN",
-                        "74F1ZL-wJM",
-                        "HheV_VJ4q-",
-                        "steam",
-                        "TRMP_7INlT",
-                        "LGkJKi32Nw",
-                        "nceqSFTmB3",
-                        "baidunetdisk1",
-                        "KlZPuCJ1ab",
-                        "YWvVj6S6iu",
-                        "MQ4q46qpe9",
-                        "NBYmCsvLWe",
-                        "9NbOqRPJk7",
-                        "ekQRFLWGLj",
-                        "7L_JQWzERh",
-                        "ahGRp9EuVs",
-                        "X-vPl2FPlV",
-                        "2GxWweuAOP",
-                        "_4P5xBHMQ_",
-                        "rWQsWe9lDy",
-                        "Ot4F-BMxOY",
-                        "mrm4Is_yEN",
-                        "O94ONuFMy_",
-                        "IO7KVDlsmB",
-                        "KNZvQUUOtl",
-                        "net.lutris.Lutris",
-                        "iQ7ZhbENJv",
-                        "LiZuZMLuDS",
-                        "OmfOOGof9J",
-                        "eSearch",
-                        "BlueMail",
-                        "Ferdium",
-                        "[碧蓝档案]主题曲《Clear morning》自制双语字幕 - 玖兰空-kilako",
-                        "【4K制作】周杰伦——《霍元甲》 - 麦子粥粥",
-                        "“我腿直接抖飞了”《We Won't Be Alone》 - Connor爱音乐",
-                        "女神宿舍的管理員OP【Naughty Love】/Ashu Nekota【中日字幕】 - 百日樱花舞",
-                        "Biu",
-                        "密码生成器 - KeePassXC",
-                        "下载速度：25.5 KiB/s\n上传速度：43.2 KiB/s"
+                        "密码 - KeePassXC",
+                        "chrome_status_icon_1",
+                        "password_database.kdbx [锁定] - KeePassXC"
                     ]
                 },
                 {
                     "hideWhenZero": false,
-                    "hideWhenZeroUnread": true,
+                    "hideWhenZeroUnread": false,
                     "iconColor": "none",
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
@@ -315,7 +275,7 @@
                 },
                 {
                     "deviceNativePath": "__default__",
-                    "displayMode": "icon-hover",
+                    "displayMode": "graphic-clean",
                     "hideIfIdle": false,
                     "hideIfNotDetected": true,
                     "id": "Battery",
@@ -348,6 +308,7 @@
                 {
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": false,
                     "icon": "noctalia",
@@ -388,6 +349,7 @@
         "monitorForColors": "",
         "predefinedScheme": "Tokyo Night",
         "schedulingMode": "off",
+        "syncGsettings": true,
         "useWallpaperColors": false
     },
     "controlCenter": {
@@ -422,7 +384,7 @@
         "shortcuts": {
             "left": [
                 {
-                    "id": "WiFi"
+                    "id": "Network"
                 },
                 {
                     "id": "Bluetooth"
@@ -431,11 +393,7 @@
                     "id": "WallpaperSelector"
                 },
                 {
-                    "defaultSettings": {
-                        "compactMode": false,
-                        "defaultDuration": 0
-                    },
-                    "id": "plugin:timer"
+                    "id": "NoctaliaPerformance"
                 }
             ],
             "right": [
@@ -459,11 +417,6 @@
         "gridSnap": false,
         "gridSnapScale": false,
         "monitorWidgets": [
-            {
-                "name": "eDP-2",
-                "widgets": [
-                ]
-            }
         ],
         "overviewEnabled": true
     },
@@ -489,7 +442,6 @@
         "launcherPosition": "end",
         "launcherUseDistroLogo": false,
         "monitors": [
-            "eDP-2"
         ],
         "onlySameOutput": true,
         "pinnedApps": [
@@ -505,12 +457,12 @@
         "allowPanelsOnScreenWithoutBar": true,
         "allowPasswordWithFprintd": false,
         "animationDisabled": false,
-        "animationSpeed": 1,
+        "animationSpeed": 0.6,
         "autoStartAuth": false,
         "avatarImage": "/home/xiaoyaosheny/Pictures/Camera Roll/beifang.png",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
-        "clockStyle": "digital",
+        "clockStyle": "custom",
         "compactLockScreen": false,
         "dimmerOpacity": 0.2,
         "enableBlurBehind": true,
@@ -545,13 +497,13 @@
         },
         "language": "",
         "lockOnSuspend": true,
-        "lockScreenAnimations": false,
+        "lockScreenAnimations": true,
         "lockScreenBlur": 0,
         "lockScreenCountdownDuration": 10000,
         "lockScreenMonitors": [
         ],
         "lockScreenTint": 0,
-        "passwordChars": false,
+        "passwordChars": true,
         "radiusRatio": 1,
         "reverseScroll": false,
         "scaleRatio": 1,
@@ -563,6 +515,7 @@
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true,
+        "smoothScrollEnabled": true,
         "telemetryEnabled": true
     },
     "hooks": {
@@ -575,7 +528,7 @@
         "screenUnlock": "",
         "session": "",
         "startup": "",
-        "wallpaperChange": "[ -f ~/.wallpaper_history ] && [ \"$(stat -c%s ~/.wallpaper_history)\" -ge 1048576 ] && rm -f ~/.wallpaper_history; echo \"$1\" >> ~/.wallpaper_history\n"
+        "wallpaperChange": "file=\"/home/xiaoyaosheny/.wallpaper_history\" && maxsize=102400 && if [ -f \"$file\" ] && [ \"$(stat -c%s \"$file\")\" -gt \"$maxsize\" ]; then > \"$file\"; fi && echo \"$1\" >> \"$file\""
     },
     "idle": {
         "customCommands": "[]",
@@ -593,24 +546,25 @@
     },
     "location": {
         "analogClockInCalendar": false,
+        "autoLocate": false,
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
         "name": "Beijing, China",
-        "showCalendarEvents": false,
+        "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
         "use12hourFormat": false,
         "useFahrenheit": false,
         "weatherEnabled": true,
-        "weatherShowEffects": true
+        "weatherShowEffects": true,
+        "weatherTaliaMascotAlways": false
     },
     "network": {
-        "airplaneModeEnabled": false,
         "bluetoothAutoConnect": true,
         "bluetoothDetailsViewMode": "grid",
-        "bluetoothHideUnnamedDevices": true,
-        "bluetoothRssiPollIntervalMs": 10000,
+        "bluetoothHideUnnamedDevices": false,
+        "bluetoothRssiPollIntervalMs": 60000,
         "bluetoothRssiPollingEnabled": false,
         "disableDiscoverability": false,
         "networkPanelView": "wifi",
@@ -645,20 +599,20 @@
         ],
         "normalUrgencyDuration": 8,
         "overlayLayer": true,
-        "respectExpireTimeout": true,
+        "respectExpireTimeout": false,
         "saveToHistory": {
             "critical": true,
             "low": true,
             "normal": true
         },
         "sounds": {
-            "criticalSoundFile": "/home/xiaoyaosheny/Sounds/bbm_tone.mp3",
+            "criticalSoundFile": "/home/xiaoyaosheny/Sounds/spirit_blackberry.mp3",
             "enabled": true,
             "excludedApps": "discord,firefox,chrome,chromium,edge",
-            "lowSoundFile": "/home/xiaoyaosheny/Sounds/bbm_tone.mp3",
+            "lowSoundFile": "/home/xiaoyaosheny/Sounds/ElevenLabs_Airy_social_media_chime,_modern_app_alert.mp3",
             "normalSoundFile": "/home/xiaoyaosheny/Sounds/bbm_tone.mp3",
             "separateSounds": true,
-            "volume": 1
+            "volume": 0.5
         }
     },
     "osd": {
@@ -666,10 +620,9 @@
         "backgroundOpacity": 1,
         "enabled": true,
         "enabledTypes": [
-            3,
             0,
-            2,
-            1
+            1,
+            2
         ],
         "location": "bottom",
         "monitors": [
@@ -702,6 +655,13 @@
                 "keybind": ""
             },
             {
+                "action": "hibernate",
+                "command": "",
+                "countdownEnabled": true,
+                "enabled": false,
+                "keybind": ""
+            },
+            {
                 "action": "reboot",
                 "command": "",
                 "countdownEnabled": true,
@@ -721,13 +681,6 @@
                 "countdownEnabled": true,
                 "enabled": true,
                 "keybind": "4"
-            },
-            {
-                "action": "hibernate",
-                "command": "",
-                "countdownEnabled": true,
-                "enabled": false,
-                "keybind": ""
             },
             {
                 "action": "rebootToUefi",
@@ -751,13 +704,13 @@
     "systemMonitor": {
         "batteryCriticalThreshold": 5,
         "batteryWarningThreshold": 20,
-        "cpuCriticalThreshold": 80,
+        "cpuCriticalThreshold": 90,
         "cpuWarningThreshold": 80,
         "criticalColor": "",
         "diskAvailCriticalThreshold": 10,
         "diskAvailWarningThreshold": 20,
-        "diskCriticalThreshold": 80,
-        "diskWarningThreshold": 75,
+        "diskCriticalThreshold": 90,
+        "diskWarningThreshold": 80,
         "enableDgpuMonitoring": false,
         "externalMonitor": "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor",
         "gpuCriticalThreshold": 90,
@@ -775,7 +728,15 @@
         "activeTemplates": [
             {
                 "enabled": true,
+                "id": "niri"
+            },
+            {
+                "enabled": true,
                 "id": "gtk"
+            },
+            {
+                "enabled": true,
+                "id": "kitty"
             },
             {
                 "enabled": true,
@@ -783,18 +744,34 @@
             },
             {
                 "enabled": true,
-                "id": "kcolorscheme"
+                "id": "steam"
+            },
+            {
+                "enabled": true,
+                "id": "telegram"
+            },
+            {
+                "enabled": true,
+                "id": "code"
+            },
+            {
+                "enabled": true,
+                "id": "yazi"
+            },
+            {
+                "enabled": true,
+                "id": "zenBrowser"
             }
         ],
         "enableUserTheming": false
     },
     "ui": {
         "boxBorderEnabled": false,
-        "fontDefault": "Roboto",
+        "fontDefault": "霞鹜文楷",
         "fontDefaultScale": 1,
-        "fontFixed": "DejaVu Sans Mono",
+        "fontFixed": "monospace",
         "fontFixedScale": 1,
-        "panelBackgroundOpacity": 0.93,
+        "panelBackgroundOpacity": 0.8,
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": false,
         "settingsPanelMode": "attached",
@@ -812,12 +789,8 @@
         "fillColor": "#000000",
         "fillMode": "fit",
         "hideWallpaperFilenames": false,
+        "linkLightAndDarkWallpapers": true,
         "monitorDirectories": [
-            {
-                "directory": "/data/xiaoyaosheny/Pictures/Wallpapers",
-                "name": "eDP-2",
-                "wallpaper": ""
-            }
         ],
         "overviewBlur": 0.4,
         "overviewEnabled": true,

@@ -1,3 +1,7 @@
 [indicator]
 parent = { underline = true }
 current = { underline = true }
+
+[flavor]
+dark  = "noctalia"
+light = "noctalia"

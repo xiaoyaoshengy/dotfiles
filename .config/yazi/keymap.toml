@@ -14,26 +14,6 @@ run = "plugin toggle-pane max-preview"
 desc = "Show or hide the preview pane"
 
 [[mgr.prepend_keymap]]
-on = ["m"]
-run = "plugin bookmarks save"
-desc = "Save current position as a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["'"]
-run = "plugin bookmarks jump"
-desc = "Jump to a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["b", "d"]
-run = "plugin bookmarks delete"
-desc = "Delete a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["b", "D"]
-run = "plugin bookmarks delete_all"
-desc = "Delete all bookmarks"
-
-[[mgr.prepend_keymap]]
 on = '+'
 run = 'plugin zoom 1'
 desc = 'Zoom in hovered file'
@@ -42,3 +22,43 @@ desc = 'Zoom in hovered file'
 on = '-'
 run = 'plugin zoom -1'
 desc = 'Zoom out hovered file'
+
+[[mgr.prepend_keymap]]
+on = [ "u", "a" ]
+run = "plugin yamb -- save"
+desc = "Add bookmark"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "g" ]
+run = "plugin yamb -- jump_by_key"
+desc = "Jump bookmark by key"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "G" ]
+run = "plugin yamb -- jump_by_fzf"
+desc = "Jump bookmark by fzf"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "d" ]
+run = "plugin yamb -- delete_by_key"
+desc = "Delete bookmark by key"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "D" ]
+run = "plugin yamb -- delete_by_fzf"
+desc = "Delete bookmark by fzf"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "A" ]
+run = "plugin yamb -- delete_all"
+desc = "Delete all bookmarks"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "r" ]
+run = "plugin yamb -- rename_by_key"
+desc = "Rename bookmark by key"
+
+[[mgr.prepend_keymap]]
+on = [ "u", "R" ]
+run = "plugin yamb -- rename_by_fzf"
+desc = "Rename bookmark by fzf"

@@ -1,21 +1,3 @@
--- bookmarks.yazi
-require("bookmarks"):setup({
-	last_directory = { enable = false, persist = false, mode = "dir" },
-	persist = "all",
-	desc_format = "full",
-	file_pick_mode = "hover",
-	custom_desc_input = false,
-	notify = {
-		enable = false,
-		timeout = 1,
-		message = {
-			new = "New bookmark '<key>' -> '<folder>'",
-			delete = "Delete bookmark in '<key>'",
-			delete_all = "Delete all bookmarks",
-		},
-	},
-})
-
 -- yatline.yazi
 require("yatline"):setup({
 	section_separator = { open = "", close = "" },
@@ -87,7 +69,7 @@ require("yatline"):setup({
 				{ type = "string", custom = false, name = "hovered_size" },
 			},
 			section_c = {
-				{ type = "string", custom = false, name = "hovered_path" },
+				{ type = "string",   custom = false, name = "hovered_path" },
 				{ type = "coloreds", custom = false, name = "count" },
 			},
 		},
@@ -99,9 +81,46 @@ require("yatline"):setup({
 				{ type = "string", custom = false, name = "cursor_percentage" },
 			},
 			section_c = {
-				{ type = "string", custom = false, name = "hovered_file_extension", params = { true } },
+				{ type = "string",   custom = false, name = "hovered_file_extension", params = { true } },
 				{ type = "coloreds", custom = false, name = "permissions" },
 			},
 		},
 	},
+})
+
+-- yamb.yazi
+local bookmarks = {}
+
+local path_sep = package.config:sub(1, 1)
+local home_path = ya.target_family() == "windows" and os.getenv("USERPROFILE") or os.getenv("HOME")
+if ya.target_family() == "windows" then
+	table.insert(bookmarks, {
+		tag = "Scoop Local",
+		path = (os.getenv("SCOOP") or home_path .. "\\scoop") .. "\\",
+		key = "p",
+	})
+	table.insert(bookmarks, {
+		tag = "Scoop Global",
+		path = (os.getenv("SCOOP_GLOBAL") or "C:\\ProgramData\\scoop") .. "\\",
+		key = "P",
+	})
+end
+table.insert(bookmarks, {
+	tag = "Desktop",
+	path = home_path .. path_sep .. "Desktop" .. path_sep,
+	key = "d",
+})
+
+require("yamb"):setup({
+	-- Optional, the path ending with path seperator represents folder.
+	bookmarks = bookmarks,
+	-- Optional, recieve notification everytime you jump.
+	jump_notify = true,
+	-- Optional, the cli of fzf.
+	cli = "fzf",
+	-- Optional, a string used for randomly generating keys, where the preceding characters have higher priority.
+	keys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	-- Optional, the path of bookmarks
+	path = (ya.target_family() == "windows" and os.getenv("APPDATA") .. "\\yazi\\config\\bookmark")
+			or (os.getenv("HOME") .. "/.config/yazi/bookmark"),
 })

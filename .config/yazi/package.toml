@@ -1,27 +1,22 @@
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "cfb9140"
-hash = "b5067143415bd2d46c0dfa57319ddcef"
+rev = "406ce6c"
+hash = "f5afc904d5106ee368c8aa2ded43bd74"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "398796d"
-hash = "8a7c58225816a163a6e8730c0adafbc8"
+rev = "1db18bb"
+hash = "9c7987da2d2a2120dac33abb64132004"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "398796d"
-hash = "2dd68af59418b631b9703a03f606b31f"
+rev = "1db18bb"
+hash = "384464b6df8cb807425c521f8cd790f3"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "90a1652"
-hash = "7a83bfab51d1d2ba6558cc56bd52539a"
-
-[[plugin.deps]]
-use = "dedukun/bookmarks"
-rev = "9ef1254"
-hash = "92fbb5483657fa7976cdf4e0104e18e0"
+rev = "49f5ab7"
+hash = "6e3b5e58f985cc2d625e0030dc35b1b2"
 
 [[plugin.deps]]
 use = "carlosedp/yatline"
@@ -30,8 +25,13 @@ hash = "37fe452b2406df3f24e33b429ef699c2"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:zoom"
-rev = "398796d"
-hash = "a638db397a5a41d3f3a08a7427ccead1"
+rev = "1db18bb"
+hash = "fa268cb59989a87780605fdcfb8d99a9"
+
+[[plugin.deps]]
+use = "h-hg/yamb"
+rev = "5f2e22e"
+hash = "699fe07e0d2d1b4af8dafb84168eeb04"
 
 [flavor]
 deps = []
