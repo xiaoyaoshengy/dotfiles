@@ -3,11 +3,6 @@
 image_bound = [0, 0]
 
 [plugin]
-prepend_preloaders = [
-  # mediainfo.yazi
-  { mime = "{audio,video}/*", run = "mediainfo" },
-  { mime = "application/{subrip,octet-stream}", run = "mediainfo" },
-]
 prepend_previewers = [
   # ouch.yazi
   # Archive previewer
@@ -23,10 +18,6 @@ prepend_previewers = [
   { url = "*.csv", run = 'piper -- bat -p --color=always "$1"' },
   { url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
   { url = "*/", run = 'piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes "$1"' },
-
-  # mediainfo.yazi
-  { mime = "{audio,video}/*", run = "mediainfo" },
-  { mime = "application/{subrip,octet-stream}", run = "mediainfo" },
 
   # default
   { url = "*/", run = "folder" },

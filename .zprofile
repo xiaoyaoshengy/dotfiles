@@ -12,7 +12,7 @@ export EDITOR=nvim
 export BROWSER=chromium
 
 ### Zsh
-export HISTFILE="${XDG_DATA_HOME}/zsh/history"
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 ### 终端
 export MANPAGER="nvim +Man!"

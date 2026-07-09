@@ -139,7 +139,6 @@ window-rule {
     match app-id="telegram"
     match app-id="Zotero"
     match app-id="baidunetdisk"
-    match app-id="vnite"
     match app-id="satty"
     match app-id="KeePassXC"
     match app-id="moe.launcher.sleepy-launcher"
@@ -160,6 +159,7 @@ window-rule {
     match app-id="org.gnome.Calculator"
     match app-id="feh"
     match app-id="xdg-desktop-portal-gnome"
+    match app-id="gimp"
     open-maximized-to-edges false
     open-floating true
 }
@@ -352,7 +352,7 @@ binds {
     // #"截屏"
     Print hotkey-overlay-title="自定义截图" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit annotate"; }
     Ctrl+Print hotkey-overlay-title="全屏截图" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit annotateFullscreen"; }
-    Shift+Print hotkey-overlay-title="Pin" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit pin"; }
+    Shift+Print hotkey-overlay-title="贴图" { spawn-sh "qs -c noctalia-shell ipc call plugin:screen-toolkit pin"; }
     Mod+S hotkey-overlay-title="滚动截屏" { spawn-sh "/usr/bin/wayscrollshot -c"; }
 
     // #"其他"
